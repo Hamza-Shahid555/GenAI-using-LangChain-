@@ -1,0 +1,178 @@
+# ⚡ Parallel Chain in LangChain
+
+This project demonstrates **Parallel Chains** in LangChain.
+
+Instead of executing tasks one after another, multiple tasks run simultaneously.
+
+---
+
+# 📌 Objective
+
+Given a text:
+
+- Generate notes
+- Generate quiz questions
+- Merge both into one document
+
+---
+
+# 🧠 Workflow
+
+```
+
+Input Text
+|
++----------------------+
+| |
+v v
+Notes Chain Quiz Chain
+| |
++----------+-----------+
+|
+v
+Merge Chain
+|
+v
+Final Document
+
+```
+
+---
+
+# 📂 Project Structure
+
+```
+
+parallel_chain.py
+README.md
+
+```
+
+---
+
+# 📦 Installation
+
+```bash
+pip install langchain langchain-openai langchain-anthropic python-dotenv
+```
+
+---
+
+# ⚙️ Workflow Explanation
+
+## Step 1
+
+Generate Notes
+
+```
+Prompt
+↓
+OpenAI
+↓
+Notes
+```
+
+---
+
+## Step 2
+
+Generate Quiz
+
+```
+Prompt
+↓
+Claude
+↓
+Quiz
+```
+
+---
+
+## Step 3
+
+Run Both Together
+
+```python
+RunnableParallel({
+    "notes": ...,
+    "quiz": ...
+})
+```
+
+Both chains execute simultaneously.
+
+---
+
+## Step 4
+
+Merge Results
+
+```
+Notes
++
+Quiz
+↓
+Merge Prompt
+↓
+OpenAI
+↓
+Final Document
+```
+
+---
+
+# 📈 Architecture
+
+```
+                Input Text
+                     │
+      ┌──────────────┴──────────────┐
+      ▼                             ▼
+ Generate Notes             Generate Quiz
+      │                             │
+      ▼                             ▼
+     Notes                        Quiz
+            └──────────┬───────────┘
+                       ▼
+                 Merge Prompt
+                       ▼
+                    OpenAI
+                       ▼
+                 Final Output
+```
+
+---
+
+# 🚀 Run
+
+```bash
+python parallel_chain.py
+```
+
+---
+
+# 🎯 Learning Outcomes
+
+You'll learn:
+
+- RunnableParallel
+- Running multiple LLMs
+- OpenAI + Claude together
+- Parallel execution
+- Combining outputs
+
+---
+
+# 📚 Concepts Covered
+
+- RunnableParallel
+- Multiple Models
+- Prompt Engineering
+- LangChain Pipelines
+- LCEL
+
+---
+
+# 👨‍💻 Author Hamza shahid 
+
+Educational LangChain example for Parallel Chains.
