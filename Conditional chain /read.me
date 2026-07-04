@@ -1,0 +1,211 @@
+# 🌳 Conditional Chain in LangChain
+
+This project demonstrates how to build **Conditional Chains** using LangChain.
+
+The workflow automatically decides which chain to execute based on the sentiment of user feedback.
+
+---
+
+# 📌 Objective
+
+1. Detect sentiment.
+2. If Positive → Generate thank-you response.
+3. If Negative → Generate apology/support response.
+
+---
+
+# 🧠 Workflow
+
+```
+
+Feedback
+|
+v
+Sentiment Classifier
+|
++------------------------+
+| |
+Positive Negative
+| |
+v v
+Positive Chain Negative Chain
+|
+v
+Final Response
+
+```
+
+---
+
+# 📂 Project Structure
+
+```
+
+conditional_chain.py
+README.md
+
+```
+
+---
+
+# 📦 Installation
+
+```bash
+pip install langchain langchain-openai langchain-anthropic python-dotenv pydantic
+```
+
+---
+
+# ⚙️ Workflow
+
+## Step 1
+
+User enters feedback.
+
+Example
+
+```
+This phone is amazing.
+```
+
+---
+
+## Step 2
+
+Pydantic Parser
+
+```python
+class Feedback(BaseModel):
+    sentiment: Literal[
+        "positive",
+        "negative"
+    ]
+```
+
+The LLM must return
+
+```
+{
+  "sentiment":"positive"
+}
+```
+
+---
+
+## Step 3
+
+Classify Sentiment
+
+```
+Feedback
+↓
+Prompt
+↓
+OpenAI
+↓
+Pydantic Parser
+```
+
+---
+
+## Step 4
+
+Branch
+
+```python
+RunnableBranch(
+   Positive,
+   Negative
+)
+```
+
+Decision:
+
+```
+positive?
+│
+├── Yes → Positive Response
+│
+└── No
+      │
+      ▼
+Negative Response
+```
+
+---
+
+## Step 5
+
+Generate Final Reply
+
+Positive example:
+
+```
+Thank you for your wonderful feedback!
+```
+
+Negative example:
+
+```
+We're sorry to hear that.
+```
+
+---
+
+# 📈 Architecture
+
+```
+Feedback
+   │
+   ▼
+Sentiment Classifier
+   │
+   ▼
+RunnableBranch
+   │
+ ┌─┴─────────────┐
+ ▼               ▼
+Positive      Negative
+Chain          Chain
+      │
+      ▼
+Final Response
+```
+
+---
+
+# 🚀 Run
+
+```bash
+python conditional_chain.py
+```
+
+---
+
+# 🎯 Learning Outcomes
+
+You'll learn:
+
+- RunnableBranch
+- Conditional execution
+- PydanticOutputParser
+- Structured outputs
+- Sentiment classification
+- Dynamic workflows
+
+---
+
+# 📚 Concepts Covered
+
+- RunnableBranch
+- RunnableLambda
+- Pydantic Parser
+- LCEL
+- Prompt Engineering
+- Conditional Logic
+
+---
+
+# 👨‍💻 Author Hamza Shahid
+
+Educational LangChain example demonstrating Conditional Chains.
