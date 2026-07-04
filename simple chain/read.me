@@ -1,0 +1,234 @@
+# 🔗 Simple Chain in LangChain
+
+This project demonstrates how to build a **Simple Chain** using LangChain Expression Language (LCEL).
+
+A Simple Chain connects:
+
+Input → Prompt → LLM → Output Parser
+
+---
+
+# 📌 Objective
+
+Generate **5 interesting facts** about any topic using an LLM.
+
+Example:
+
+Input:
+```
+
+Cricket
+
+```
+
+Output:
+```
+
+1. Cricket originated in England.
+2. ...
+3. ...
+4. ...
+5. ...
+
+```
+
+---
+
+# 🧠 Workflow
+
+```
+
+User Input
+|
+v
+PromptTemplate
+|
+v
+ChatOpenAI
+|
+v
+StrOutputParser
+|
+v
+Final Output
+
+```
+
+---
+
+# 📂 Project Structure
+
+```
+
+simple_chain.py
+README.md
+
+```
+
+---
+
+# 📦 Libraries Used
+
+- langchain
+- langchain-openai
+- python-dotenv
+
+Install:
+
+```bash
+pip install langchain langchain-openai python-dotenv
+```
+
+---
+
+# ⚙️ Code Explanation
+
+## 1. Load Environment Variables
+
+```python
+load_dotenv()
+```
+
+Loads the OpenAI API key from the `.env` file.
+
+Example:
+
+```
+OPENAI_API_KEY=your_api_key
+```
+
+---
+
+## 2. Create Prompt
+
+```python
+PromptTemplate(
+    template="Generate 5 interesting facts about {topic}"
+)
+```
+
+This creates a reusable prompt.
+
+Example:
+
+Input:
+
+```
+topic = "Cricket"
+```
+
+Prompt sent to GPT:
+
+```
+Generate 5 interesting facts about Cricket
+```
+
+---
+
+## 3. Initialize the LLM
+
+```python
+model = ChatOpenAI()
+```
+
+Uses OpenAI GPT.
+
+---
+
+## 4. Output Parser
+
+```python
+parser = StrOutputParser()
+```
+
+Converts the LLM response into a plain string.
+
+---
+
+## 5. Create Chain
+
+```python
+chain = prompt | model | parser
+```
+
+LCEL (`|`) connects components together.
+
+Equivalent to:
+
+```
+Prompt
+ ↓
+LLM
+ ↓
+Parser
+```
+
+---
+
+## 6. Invoke Chain
+
+```python
+chain.invoke({
+    "topic":"Cricket"
+})
+```
+
+Returns:
+
+```
+Five interesting facts about cricket.
+```
+
+---
+
+# 📈 Chain Diagram
+
+```
+PromptTemplate
+      │
+      ▼
+ ChatOpenAI
+      │
+      ▼
+StrOutputParser
+      │
+      ▼
+Final Response
+```
+
+---
+
+# 🚀 Run
+
+```bash
+python simple_chain.py
+```
+
+---
+
+# 🎯 Learning Outcomes
+
+After completing this project, you will understand:
+
+- PromptTemplate
+- ChatOpenAI
+- StrOutputParser
+- LCEL (`|`)
+- Chain invocation
+- Basic LangChain workflow
+
+---
+
+# 📚 Concepts Covered
+
+- LangChain
+- LCEL
+- Prompt Engineering
+- Output Parsing
+- LLM Pipeline
+
+---
+ 
+# 👨‍💻 Author Hamza shahid 
+
+Built for learning LangChain fundamentals.
